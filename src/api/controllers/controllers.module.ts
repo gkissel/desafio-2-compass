@@ -1,6 +1,6 @@
 import express from 'express'
-import { HelloController } from './hello/hello.controller'
+import { HelloModule } from './hello/hello.module'
 
 export const controllersRouter = express.Router()
 
-controllersRouter.use(HelloController)
+controllersRouter.use(HelloModule)
