@@ -45,6 +45,7 @@
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "migrations": "typeorm-ts-node-commonjs migration:run -d ./src/database/data-source.ts",
-    "typeorm": "typeorm-ts-node-commonjs schema:sync -d ./src/database/data-source.ts"
+    "typeorm": "typeorm-ts-node-commonjs schema:sync -d ./src/database/data-source.ts",
+    "typeorm:m:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d ./src/database/data-source.ts"
   }
 }

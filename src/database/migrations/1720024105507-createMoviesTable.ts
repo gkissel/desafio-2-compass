@@ -38,6 +38,21 @@ export class CreateMoviesTable1720024105507 implements MigrationInterface {
             name: 'release_date',
             type: 'varchar',
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'CURRENT_TIMESTAMP',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'CURRENT_TIMESTAMP',
+          },
+          {
+            name: 'deleted_at',
+            type: 'timestamp',
+            isNullable: true,
+          },
         ],
       }),
     );
