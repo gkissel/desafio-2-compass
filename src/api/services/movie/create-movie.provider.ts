@@ -40,7 +40,7 @@ export const CreateMovie = async (
     genre,
     image,
     name,
-    release_date,
+    release_date: new Date(release_date).toISOString(),
   })
 
   await MovieRepository.save(movie)

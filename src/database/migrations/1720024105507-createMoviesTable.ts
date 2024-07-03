@@ -36,7 +36,7 @@ export class CreateMoviesTable1720024105507 implements MigrationInterface {
           },
           {
             name: 'release_date',
-            type: 'varchar',
+            type: 'datetime',
           },
           {
             name: 'created_at',

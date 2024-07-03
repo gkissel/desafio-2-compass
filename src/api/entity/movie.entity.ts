@@ -29,8 +29,8 @@ export class Movie {
   @Column('varchar')
   genre: string
 
-  @Column('varchar')
-  release_date: string
+  @Column('datetime')
+  release_date: Date
 
   // @OneToMany(() => Session, (session) => session.movie)
   // sessions: Session[]

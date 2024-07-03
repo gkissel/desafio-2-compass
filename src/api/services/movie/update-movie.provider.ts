@@ -46,7 +46,7 @@ export const UpdateMovie = async (
   movie.description = description
   movie.genre = genre
   // eslint-disable-next-line camelcase
-  movie.release_date = release_date
+  movie.release_date = new Date(release_date).toISOString();
   movie.image = image
   movie.name = name
 

@@ -15,7 +15,7 @@ export const listMovieResponseSchema = z.array(
     description: z.string(),
     actors: z.array(z.string()),
     genre: z.string(),
-    release_date: z.string(),
+    release_date: z.date(),
     // sessions: z.array(
     //   z.object({
     //     id: z.number(),
