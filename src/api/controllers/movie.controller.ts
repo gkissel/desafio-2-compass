@@ -20,7 +20,7 @@ export default class MovieController {
         return res.status(400).json(err)
       }
       const createMovie = await this.movieService.createMovie(data)
-      res.status(201).json({ data: createMovie })
+      res.status(201).json(createMovie)
     } catch (error) {
       res.status(400).json({ message: error })
     }
@@ -42,7 +42,7 @@ export default class MovieController {
     }
     try {
       const updateMovie = await this.movieService.updateMovie(data)
-      res.status(200).json({ data: updateMovie })
+      res.status(200).json(updateMovie)
     } catch (error) {
       console.error('Error updating movie: ', error)
       res.status(500).json({ error: 'Internal Server Error' })
@@ -81,7 +81,7 @@ export default class MovieController {
     try {
       const movie = await this.movieService.searchMovie({ id })
 
-      res.status(200).json({ movie })
+      res.status(200).json(movie)
     } catch (error) {
       console.error('Error searching movie: ', error)
       res.status(404).json({ error: 'Movie not found' })
@@ -94,7 +94,7 @@ export default class MovieController {
     try {
       const movies = await this.movieService.listMovie({ page, perPage })
       if (movies) {
-        return res.status(200).json({ movies })
+        return res.status(200).json(movies)
       }
       res.status(204).send()
     } catch (error) {
