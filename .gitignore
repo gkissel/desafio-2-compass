@@ -27,6 +27,8 @@ lerna-debug.log*
 
 data.db
 
+.env
+
 # IDEs and editors
 /.idea
 .project
