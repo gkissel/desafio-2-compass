@@ -1,7 +1,7 @@
 import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
-import { listMovieData, listPaginationData } from '@/api/interfaces/movie.interfaces'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { listMovieSchema } from '@/api/schemas/movie.schemas'
+import { listMovieData, listPaginationData } from '@/api/types/movie.types'
 
 export const ListMovie = async ({
   page,

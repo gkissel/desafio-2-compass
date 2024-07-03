@@ -1,11 +1,11 @@
 import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
-import { movieData, updateMovieData } from '@/api/interfaces/movie.interfaces'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
-import { movieSchema, updateMovieSchema } from '@/api/schemas/movie.schemas'
+import { movieSchema, newMovieSchema, updateMovieSchema } from '@/api/schemas/movie.schemas'
+import { movieData, newMovieData, updateMovieData } from '@/api/types/movie.types'
 
 export const UpdateMovie = async (
   movieData: updateMovieData,
-): Promise<movieData> => {
+): Promise<newMovieData> => {
   // eslint-disable-next-line camelcase
   const { actors, description, genre, image, name, release_date, id } =
     updateMovieSchema.parse(movieData)
@@ -29,5 +29,5 @@ export const UpdateMovie = async (
 
   const updatedMovie = await MovieRepository.save(movie)
 
-  return movieSchema.parse(updatedMovie)
+  return newMovieSchema.parse(updatedMovie)
 }

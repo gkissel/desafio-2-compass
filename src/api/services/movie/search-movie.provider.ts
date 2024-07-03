@@ -1,7 +1,7 @@
 import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
-import { movieData, searchMovieData } from '@/api/interfaces/movie.interfaces'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { movieSchema } from '@/api/schemas/movie.schemas'
+import { movieData, searchMovieData } from '@/api/types/movie.types'
 
 export const SearchMovie = async ({
   id,

@@ -1,6 +1,6 @@
-import { createMovieData, newMovieData } from '@/api/interfaces/movie.interfaces'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { createMovieSchema, newMovieSchema } from '@/api/schemas/movie.schemas'
+import { createMovieData, newMovieData } from '@/api/types/movie.types'
 
 export const CreateMovie = async (
   movieData: createMovieData,
