@@ -42,7 +42,7 @@ export const SearchMovie = async ({
   id,
 }: searchMovieRequestData): Promise<searchMovieResponseData> => {
   // eslint-disable-next-line camelcase
-  const movies = await MovieRepository.find({
+  const movies = await MovieRepository.findOne({
     where: { id },
   })
   if (!movies) {
