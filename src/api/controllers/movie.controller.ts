@@ -1,15 +1,13 @@
 import { Request, Response } from 'express'
-import { createMovieRequestSchema } from '../services/movie/create-movie.provider'
-import { listMovieRequestSchema } from '../services/movie/list-movie.provider'
 import MovieService from '../services/movie/movie.service'
-import { updateMovieRequestSchema } from '../services/movie/update-movie.provider'
+import { createMovieSchema, moviePaginationSchema, updateMovieSchema } from '../schemas/movie.schemas'
 
 export default class MovieController {
   movieService = new MovieService()
 
   createMovie = async (req: Request, res: Response) => {
     try {
-      const { error, data } = createMovieRequestSchema.safeParse(req.body)
+      const { error, data } = createMovieSchema.safeParse(req.body)
 
       if (error) {
         const err = {
@@ -27,7 +25,7 @@ export default class MovieController {
   }
 
   updateMovie = async (req: Request, res: Response) => {
-    const { error, data } = updateMovieRequestSchema.safeParse({
+    const { error, data } = updateMovieSchema.safeParse({
       ...req.body,
       id: parseInt(req.params.id),
     })
@@ -89,7 +87,7 @@ export default class MovieController {
   }
 
   listMovies = async (req: Request, res: Response) => {
-    const { page, perPage } = listMovieRequestSchema.parse(req.query)
+    const { page, perPage } = moviePaginationSchema.parse(req.query)
 
     try {
       const movies = await this.movieService.listMovie({ page, perPage })
