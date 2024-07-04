@@ -1,9 +1,10 @@
 import { CreateSession } from './create-session.provider'
+import { UpdateSession } from './update-session.provider'
 
 export default class SessionService {
   createSession = CreateSession
 
-//   updateSession = UpdateSession
+  updateSession = UpdateSession
 
 //   deleteSession = DeleteSession
 }

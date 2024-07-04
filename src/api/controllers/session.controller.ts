@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createSessionSchema } from '../schemas/session.schemas';
+import { createSessionSchema, updateSessionSchema } from '../schemas/session.schemas';
 import SessionService from '../services/session/session.service';
 
 export default class SessionController {
@@ -26,6 +26,30 @@ export default class SessionController {
       res.status(201).json(createSession);
     } catch (error) {
       res.status(400).json({ message: error });
+    }
+  };
+
+  updateSession = async (req: Request, res: Response) => {
+    const { error, data } = updateSessionSchema.safeParse({
+      ...req.body,
+      id: parseInt(req.params.id)
+    })
+
+    if(error) {
+      const err = {
+        message: error.message,
+        field: error.formErrors,
+        status: 'Failed',
+      }
+      return res.status(400).json(err)
+    }
+
+    try {
+      const updateSession = await this.sessionService.updateSession(data)
+      res.status(200).json(updateSession)
+    } catch (error) {
+      console.error('Error updating session: ', error)
+      res.status(500).json({ error: 'Internal Server Error'})
     }
   };
 }

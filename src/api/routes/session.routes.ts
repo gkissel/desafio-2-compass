@@ -7,7 +7,7 @@ const router = Router({
 const sessionController = new SessionController()
 
 router.post('/', sessionController.createSession)
-// router.put('/:id', sessionController.)
+router.put('/:id', sessionController.updateSession)
 // router.delete('/:id', sessionController.)
 
 export default router

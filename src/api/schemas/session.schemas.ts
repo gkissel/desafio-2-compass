@@ -11,5 +11,6 @@ const sessionSchema = z.object({
 
 const createSessionSchema = sessionSchema.omit({ id: true });
 const newSessionSchema = sessionSchema.omit({ movie_id: true });
+const updateSessionSchema = sessionSchema.omit({ movie_id: true });
 
-export { sessionSchema, createSessionSchema, newSessionSchema };
+export { sessionSchema, createSessionSchema, newSessionSchema, updateSessionSchema };
