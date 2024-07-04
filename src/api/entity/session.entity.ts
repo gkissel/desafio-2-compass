@@ -33,6 +33,9 @@ export class Session {
   @JoinColumn({ name: 'movie_id' })
   movie: Movie;
 
+  @Column('integer')
+  movie_id: number
+
 //   @OneToMany(() => Ticket, (ticket) => ticket.session)
 //   tickets: Ticket[];
 
