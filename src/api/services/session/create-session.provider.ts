@@ -21,6 +21,7 @@ export const CreateSession = async (
   if (!movie) {
     throw new ResourceNotFoundError();
   }
+  
   const formatDay = day.split('/').reverse().join('-');
 
   const session = SessionRepository.create({
