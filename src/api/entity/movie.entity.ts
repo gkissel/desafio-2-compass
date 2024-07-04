@@ -30,9 +30,9 @@ export class Movie {
   genre: string
 
   @Column('datetime')
-  release_date: Date
+  release_date: Timestamp
 
-  // @OneToMany(() => Session, (session) => session.movie)
+  // @OneToMany(() => Session, (session) => session.movie, { onDelete: 'CASCADE' })
   // sessions: Session[]
 
   @CreateDateColumn()
