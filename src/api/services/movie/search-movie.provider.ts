@@ -7,12 +7,12 @@ export const SearchMovie = async ({
   id,
 }: searchMovieData): Promise<movieData> => {
   // eslint-disable-next-line camelcase
-  const movies = await MovieRepository.findOne({
+  const movie = await MovieRepository.findOne({
     where: { id },
   })
-  if (!movies) {
+  if (!movie) {
     throw new ResourceNotFoundError()
   }
 
-  return movieSchema.parse(movies)
+  return movieSchema.parse(movie)
 }

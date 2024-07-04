@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 const movieSchema = z.object({
   id: z.number(),
@@ -7,7 +7,9 @@ const movieSchema = z.object({
   description: z.string(),
   actors: z.array(z.string()),
   genre: z.string(),
-  release_date: z.date(),
+  release_date: z.date().transform((date) => {
+    return date.toLocaleDateString('pt-BR')
+  }),
   // sessions: z.array(
   //   z.object({
   //     id: z.number(),
@@ -26,7 +28,7 @@ const movieSchema = z.object({
   //     ),
   //   }),
   // ),
-});
+})
 
 const newMovieSchema = z.object({
   id: z.number(),
@@ -35,26 +37,28 @@ const newMovieSchema = z.object({
   description: z.string(),
   actors: z.array(z.string()),
   genre: z.string(),
-  release_date: z.string(),
-});
+  release_date: z.coerce.date().transform((date) => {
+    return date.toLocaleDateString('pt-BR')
+  }),
+})
 
-const createMovieSchema = newMovieSchema.omit({ id: true });
-const updateMovieSchema = newMovieSchema;
-const listMovieSchema = z.array(movieSchema);
+const createMovieSchema = newMovieSchema.omit({ id: true })
+const updateMovieSchema = newMovieSchema
+const listMovieSchema = z.array(movieSchema)
 const moviePaginationSchema = z.object({
   perPage: z.coerce.number().default(20),
   page: z.coerce.number().default(1),
-});
+})
 const searchMovieSchema = z.object({
   id: z.coerce.number(),
-});
+})
 
 export {
-  movieSchema,
-  newMovieSchema,
   createMovieSchema,
-  updateMovieSchema,
   listMovieSchema,
   moviePaginationSchema,
+  movieSchema,
+  newMovieSchema,
   searchMovieSchema,
-};
+  updateMovieSchema,
+}
