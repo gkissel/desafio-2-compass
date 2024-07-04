@@ -4,9 +4,9 @@ const sessionSchema = z.object({
   id: z.number(),
   movie_id: z.number(),
   room: z.string(),
-  capacity: z.number(),
+  capacity: z.number().positive().default(100),
   day: z.string(),
-  time: z.string(),
+  time: z.string().regex(/^\d{2}:\d{2}:\d{2}$/),
 });
 
 const createSessionSchema = sessionSchema.omit({ id: true });
