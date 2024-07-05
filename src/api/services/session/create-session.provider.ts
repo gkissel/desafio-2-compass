@@ -4,10 +4,9 @@ import { MovieRepository } from '@/api/repositories/MovieRepository';
 import { movieSchema } from '@/api/schemas/movie.schemas';
 import {
   createSessionSchema,
-  newSessionSchema,
   sessionSchema,
 } from '@/api/schemas/session.schemas';
-import { createSessionData, newSessionData, sessionData } from '@/api/types/session.types';
+import { createSessionData, sessionData } from '@/api/types/session.types';
 
 export const CreateSession = async (
   sessionData: createSessionData,
@@ -37,11 +36,6 @@ export const CreateSession = async (
   });
 
   await SessionRepository.save(session);
-
-  const createdSession: sessionData = {
-    ...newSessionSchema.parse(session),
-    movie_id: movie.id,
-  }
   
-  return sessionSchema.parse(createdSession);
+  return sessionSchema.parse(session);
 };
