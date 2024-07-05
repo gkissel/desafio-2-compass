@@ -21,7 +21,7 @@ const sessionSchema = z.object({
   movie_id: z.number(),
   room: z.string(),
   capacity: z.number().positive().default(100),
-  day: z.string().regex(/^(\d{2})\/(\d{2})\/(\d{4})$/),
+  day: z.string(),
   time: z.string().refine(validateTime),
 });
 

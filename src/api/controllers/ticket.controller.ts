@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import TicketService from '../services/tickets/ticket.service';
 import { createTicketSchema } from '../schemas/ticket.schemas';
 
-export default class SessionController {
+export default class TicketController {
   ticketService = new TicketService();
 
-  createSession = async (req: Request, res: Response) => {
+  createTicket = async (req: Request, res: Response) => {
     const { movie_id, session_id } = req.params;
     const { error, data } = createTicketSchema.safeParse({
       ...req.body,
