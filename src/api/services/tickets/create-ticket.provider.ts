@@ -22,7 +22,7 @@ export const CreateTicket = async (
   const ticket = TicketRepository.create({
     chair,
     value,
-    session: sessionSchema.parse(session),
+    session,
   });
 
   await TicketRepository.save(ticket);
