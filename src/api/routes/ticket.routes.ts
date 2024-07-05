@@ -5,7 +5,7 @@ const router = Router({ mergeParams: true });
 const ticketController = new TicketController();
 
 router.post('/', ticketController.createTicket);
-// router.put('/:id', ticketController.);
-// router.delete('/:id', ticketController.);
+router.put('/:id', ticketController.UpdateTicket);
+router.delete('/:id', ticketController.deleteTicket);
 
 export default router;

@@ -8,5 +8,6 @@ const ticketSchema = z.object({
 });
 
 const createTicketSchema = ticketSchema.omit({ id: true });
+const updatedTicketSchema = ticketSchema;
 
-export { ticketSchema, createTicketSchema };
+export { ticketSchema, createTicketSchema, updatedTicketSchema };
