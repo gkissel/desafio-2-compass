@@ -24,6 +24,11 @@ export const CreateSession = async (
   
   const formatDay = day.split('/').reverse().join('-');
 
+  const isAvailable = await SessionRepository.isRoomAvailable(room, formatDay, time);
+  if (!isAvailable) {
+    throw new Error('Room is already booked for another session at this time.');
+  }
+
   const session = SessionRepository.create({
     room,
     capacity,
@@ -44,9 +49,7 @@ export const CreateSession = async (
   return sessionSchema.parse(createdSession);
 };
 
-//##########################################################
-
-
+//Delete session - 
 import { DeleteSession } from './delete-session.provider';
 
 export default class SessionService {
