@@ -1,6 +1,6 @@
 import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error';
-import { MovieRepository } from '@/api/repositories/MovieRepository';
 import { SessionRepository } from '@/api/repositories/SessionRepository';
+import { MovieRepository } from '@/api/repositories/MovieRepository';
 import { movieSchema } from '@/api/schemas/movie.schemas';
 import {
   createSessionSchema,
@@ -43,3 +43,12 @@ export const CreateSession = async (
   
   return sessionSchema.parse(createdSession);
 };
+
+//##########################################################
+
+
+import { DeleteSession } from './delete-session.provider';
+
+export default class SessionService {
+  deleteSession = DeleteSession;
+}

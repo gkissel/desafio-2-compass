@@ -57,4 +57,27 @@ export default class SessionController {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+
+  deleteSession = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+      const err = {
+        message: 'Id must be a number',
+        field: 'id',
+        status: 'Failed',
+      };
+      return res.status(400).json(err);
+    }
+
+    try {
+      await this.sessionService.deleteSession(id);
+      res.status(204).send();
+    } catch (error) {
+      console.error('Error deleting session: ', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
 }
+
