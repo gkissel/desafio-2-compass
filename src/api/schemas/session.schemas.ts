@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-//Regra pra o formato de horário ser 00:00:00 até 23:59:59
+// Regra para o formato de horário ser 00:00:00 até 23:59:59
 const timeRegex = /^\d{2}:\d{2}:\d{2}$/;
 const validateTime = (time: string) => {
   if (!timeRegex.test(time)) {
@@ -21,7 +21,7 @@ const sessionSchema = z.object({
   movie_id: z.number(),
   room: z.string(),
   capacity: z.number().positive().default(100),
-  day: z.string(),
+  day: z.string().regex(/^(\d{2})\/(\d{2})\/(\d{4})$/),
   time: z.string().refine(validateTime),
 });
 

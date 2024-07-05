@@ -22,7 +22,7 @@ export const CreateSession = async (
     throw new ResourceNotFoundError();
   }
   
-
+  // isRoomAvailable vem do SessionRepository, regra feita pra não ter 2 filmes na mesma sessão, mesmo horário
   const isAvailable = await SessionRepository.isRoomAvailable(room, day, time);
   if (!isAvailable) {
     throw new Error('Room is already booked for another session at this time.');
