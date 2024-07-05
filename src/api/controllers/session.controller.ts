@@ -59,6 +59,7 @@ export default class SessionController {
   };
 
   deleteSession = async (req: Request, res: Response) => {
+    const movie_id = parseInt(req.params.movie_id);
     const id = parseInt(req.params.id);
 
     if (isNaN(id)) {
@@ -71,7 +72,7 @@ export default class SessionController {
     }
 
     try {
-      await this.sessionService.deleteSession(id);
+      await this.sessionService.deleteSession(id, movie_id);
       res.status(204).send();
     } catch (error) {
       console.error('Error deleting session: ', error);

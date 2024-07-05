@@ -22,9 +22,8 @@ export const CreateSession = async (
     throw new ResourceNotFoundError();
   }
   
-  const formatDay = day.split('/').reverse().join('-');
 
-  const isAvailable = await SessionRepository.isRoomAvailable(room, formatDay, time);
+  const isAvailable = await SessionRepository.isRoomAvailable(room, day, time);
   if (!isAvailable) {
     throw new Error('Room is already booked for another session at this time.');
   }
@@ -32,7 +31,7 @@ export const CreateSession = async (
   const session = SessionRepository.create({
     room,
     capacity,
-    day: formatDay,
+    day,
     time,
     movie: movieSchema.parse(movie),
   });
@@ -43,15 +42,6 @@ export const CreateSession = async (
     ...newSessionSchema.parse(session),
     movie_id: movie.id,
   }
-
-  console.log(createdSession)
   
   return sessionSchema.parse(createdSession);
 };
-
-//Delete session - 
-import { DeleteSession } from './delete-session.provider';
-
-export default class SessionService {
-  deleteSession = DeleteSession;
-}
