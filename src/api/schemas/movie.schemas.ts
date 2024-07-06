@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 const movieSchema = z.object({
   id: z.number(),
@@ -8,7 +8,7 @@ const movieSchema = z.object({
   actors: z.array(z.string()),
   genre: z.string(),
   release_date: z.date().transform((date) => {
-    return date.toLocaleDateString('pt-BR')
+    return date.toLocaleDateString('pt-BR');
   }),
   // sessions: z.array(
   //   z.object({
@@ -28,7 +28,7 @@ const movieSchema = z.object({
   //     ),
   //   }),
   // ),
-})
+});
 
 const newMovieSchema = z.object({
   id: z.number(),
@@ -38,20 +38,34 @@ const newMovieSchema = z.object({
   actors: z.array(z.string()),
   genre: z.string(),
   release_date: z.coerce.date().transform((date) => {
-    return date.toLocaleDateString('pt-BR')
+    return date.toLocaleDateString('pt-BR');
   }),
-})
+});
 
-const createMovieSchema = newMovieSchema.omit({ id: true })
-const updateMovieSchema = newMovieSchema
-const listMovieSchema = z.array(movieSchema)
+const createMovieSchema = newMovieSchema
+  .omit({ id: true, release_date: true })
+  .extend({
+    release_date: z.string().transform((date) => {
+      const [dd, mm, yyyy] = date.split('/');
+      return `${yyyy}-${mm}-${dd}`;
+    }),
+  });
+
+const updateMovieSchema = newMovieSchema.omit({ release_date: true }).extend({
+  release_date: z.string().transform((date) => {
+    const [dd, mm, yyyy] = date.split('/');
+    return `${yyyy}-${mm}-${dd}`;
+  }),
+});
+
+const listMovieSchema = z.array(movieSchema);
 const moviePaginationSchema = z.object({
   perPage: z.coerce.number().default(20),
   page: z.coerce.number().default(1),
-})
+});
 const searchMovieSchema = z.object({
   id: z.coerce.number(),
-})
+});
 
 export {
   createMovieSchema,
@@ -61,4 +75,4 @@ export {
   newMovieSchema,
   searchMovieSchema,
   updateMovieSchema,
-}
+};
