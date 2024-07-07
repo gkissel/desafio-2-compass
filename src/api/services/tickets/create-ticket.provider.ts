@@ -11,6 +11,10 @@ export const CreateTicket = async (
   // eslint-disable-next-line camelcase
   const { session_id, chair, value } = createTicketSchema.parse(ticketData);
 
+  if (await TicketRepository.exists({ where: { chair, session_id } })) {
+    throw new Error('This chair is already reserved.')
+  }
+
   const session = await SessionRepository.findOne({
     where: { id: session_id },
   });
