@@ -31,6 +31,7 @@ export const CreateSession = async (
     day,
     time,
     movie: movieSchema.parse(movie),
+    tickets: []
   });
 
   await SessionRepository.save(session);

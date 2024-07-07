@@ -18,7 +18,7 @@ export class Movie {
   @Column('varchar')
   image: string;
 
-  @Column('varchar', { unique: true })
+  @Column('varchar')
   name: string;
 
   @Column('varchar')

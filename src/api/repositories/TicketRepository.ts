@@ -8,4 +8,8 @@ export const TicketRepository = AppDataSource.getRepository(Ticket).extend({
   ): Promise<Ticket | null> {
     return await this.findOne({ where: { chair, session_id } });
   },
+
+  async findBySession(session_id: number): Promise<Ticket[] | null> {
+    return await this.find({ where: { session_id } });
+  },
 });

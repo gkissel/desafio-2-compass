@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { sessionTicketSchema } from './session.schemas';
 
 const movieSchema = z.object({
   id: z.number(),
@@ -10,24 +11,7 @@ const movieSchema = z.object({
   release_date: z.date().transform((date) => {
     return date.toLocaleDateString('pt-BR');
   }),
-  // sessions: z.array(
-  //   z.object({
-  //     id: z.number(),
-  //     movie_id: z.number(),
-  //     room: z.string(),
-  //     capacity: z.number(),
-  //     day: z.string(),
-  //     time: z.string(),
-  //     tickets: z.array(
-  //       z.object({
-  //         id: z.number(),
-  //         session_id: z.number(),
-  //         chair: z.string(),
-  //         value: z.number(),
-  //       }),
-  //     ),
-  //   }),
-  // ),
+  sessions: z.optional(z.array(sessionTicketSchema))
 });
 
 const newMovieSchema = z.object({

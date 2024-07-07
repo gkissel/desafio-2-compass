@@ -15,12 +15,12 @@ export class CreateMoviesTable1720024105507 implements MigrationInterface {
           },
           {
             name: 'image',
-            type: 'varchar',
-            isUnique: true
+            type: 'varchar'
           },
           {
             name: 'name',
             type: 'varchar',
+            isUnique: true
           },
           {
             name: 'description',
