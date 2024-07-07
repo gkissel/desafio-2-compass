@@ -19,7 +19,7 @@ export const ListMovie = async ({
   }
 
   for (let i = 0; i < movies.length; i++) {
-    let sessions = await SessionRepository.find({
+    const sessions = await SessionRepository.find({
       where: { movie_id: movies[i].id },
     });
     for (let i = 0; i < sessions.length; i++) {

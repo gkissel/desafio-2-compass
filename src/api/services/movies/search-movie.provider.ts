@@ -16,7 +16,7 @@ export const SearchMovie = async ({
     throw new ResourceNotFoundError();
   }
 
-  let sessions = await SessionRepository.find({ where: { movie_id: id } }); // encontrar as sessions do filme
+  const sessions = await SessionRepository.find({ where: { movie_id: id } }); // encontrar as sessions do filme
 
   for (let i = 0; i < sessions.length; i++) {
     const tickets = await TicketRepository.find({ where: { session_id: sessions[i].id}})
