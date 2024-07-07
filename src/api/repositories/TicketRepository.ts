@@ -6,7 +6,6 @@ export const TicketRepository = AppDataSource.getRepository(Ticket).extend({
     chair: string,
     session_id: number,
   ): Promise<Ticket | null> {
-    const ticket = await this.findOne({ where: { chair, session_id } });
-    return ticket;
+    return await this.findOne({ where: { chair, session_id } });
   },
 });

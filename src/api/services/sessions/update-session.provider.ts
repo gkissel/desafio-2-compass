@@ -25,9 +25,19 @@ export const UpdateSession = async (
   if (!session) {
     throw new ResourceNotFoundError();
   }
-  
+
   if (movie.id !== session.movie_id) {
     throw new SessionMovieError(); // melhorar esse erro - exibir msg
+  }
+
+  const checkSession = await SessionRepository.findByRoomAndDayAndTime(
+    room,
+    day,
+    time,
+  );
+
+  if (checkSession && checkSession.id !== id) {
+    throw new Error('Room is already booked for another session at this time.');
   }
 
   session.room = room;
