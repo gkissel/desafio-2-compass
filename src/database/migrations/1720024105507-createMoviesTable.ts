@@ -16,6 +16,7 @@ export class CreateMoviesTable1720024105507 implements MigrationInterface {
           {
             name: 'image',
             type: 'varchar',
+            isUnique: true
           },
           {
             name: 'name',
