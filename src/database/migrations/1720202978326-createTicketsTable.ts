@@ -1,10 +1,15 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
-export class CreateMoviesTable1720024105507 implements MigrationInterface {
+export class CreateTicketsTable1720202978326 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'movies',
+        name: 'tickets',
         columns: [
           {
             name: 'id',
@@ -14,30 +19,16 @@ export class CreateMoviesTable1720024105507 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'image',
-            type: 'varchar'
-          },
-          {
-            name: 'name',
-            type: 'varchar',
-            isUnique: true
-          },
-          {
-            name: 'description',
+            name: 'chair',
             type: 'varchar',
           },
           {
-            name: 'actors',
-            type: 'varchar',
-            isArray: true,
+            name: 'value',
+            type: 'double',
           },
           {
-            name: 'genre',
-            type: 'varchar',
-          },
-          {
-            name: 'release_date',
-            type: 'datetime',
+            name: 'session_id',
+            type: 'integer',
           },
           {
             name: 'created_at',
@@ -57,9 +48,21 @@ export class CreateMoviesTable1720024105507 implements MigrationInterface {
         ],
       }),
     );
+
+    await queryRunner.createForeignKey(
+      'tickets',
+      new TableForeignKey({
+        name: 'TicketsSession',
+        columnNames: ['session_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'sessions',
+        onDelete: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('movies');
+    await queryRunner.dropForeignKey('tickets', 'TicketsSession');
+    await queryRunner.dropTable('tickets');
   }
 }

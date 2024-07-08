@@ -3,7 +3,7 @@ import {
   createSessionSchema,
   updateSessionSchema,
 } from '../schemas/session.schemas';
-import SessionService from '../services/session/session.service';
+import SessionService from '../services/sessions/session.service';
 
 export default class SessionController {
   sessionService = new SessionService();

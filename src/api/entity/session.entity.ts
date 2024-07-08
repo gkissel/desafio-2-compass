@@ -5,12 +5,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  // OneToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn,
 } from 'typeorm';
 import { Movie } from './movie.entity';
+import { Ticket } from './ticket.entity';
 
 @Entity({ name: 'Sessions' })
 export class Session {
@@ -36,8 +37,8 @@ export class Session {
   @Column('integer')
   movie_id: number
 
-//   @OneToMany(() => Ticket, (ticket) => ticket.session)
-//   tickets: Ticket[];
+  @OneToMany(() => Ticket, (ticket) => ticket.session)
+  tickets: Ticket[];
 
   @CreateDateColumn()
   created_at: Timestamp;

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'; 
-import MovieService from '../services/movie/movie.service'; 
+import MovieService from '../services/movies/movie.service'; 
 import { createMovieSchema, moviePaginationSchema, updateMovieSchema } from '../schemas/movie.schemas'; 
 
 export default class MovieController {
