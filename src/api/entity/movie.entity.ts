@@ -3,11 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  // OneToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn,
 } from 'typeorm'
+import { Session } from './session.entity'
 
 @Entity({ name: 'Movies' })
 export class Movie {
@@ -32,8 +33,8 @@ export class Movie {
   @Column('datetime')
   release_date: Timestamp
 
-  // @OneToMany(() => Session, (session) => session.movie, { onDelete: 'CASCADE' })
-  // sessions: Session[]
+  @OneToMany(() => Session, (session) => session.movie)
+  sessions: Session[]
 
   @CreateDateColumn()
   created_at: Timestamp

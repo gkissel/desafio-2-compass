@@ -62,3 +62,4 @@ export {
   searchMovieSchema,
   updateMovieSchema,
 }
+
