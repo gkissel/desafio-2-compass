@@ -18,12 +18,14 @@ export const SearchMovie = async ({
 
   const sessions = await SessionRepository.find({ where: { movie_id: id } }); // encontrar as sessions do filme
 
-  for (let i = 0; i < sessions.length; i++) {
-    const tickets = await TicketRepository.find({ where: { session_id: sessions[i].id}})
-    sessions[i].tickets = tickets
+  for (const session of sessions) {
+    const tickets = await TicketRepository.find({
+      where: { session_id: session.id },
+    });
+    session.tickets = tickets;
   }
 
-  movie.sessions = sessions
-  
+  movie.sessions = sessions;
+
   return movieSchema.parse(movie);
 };

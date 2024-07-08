@@ -18,17 +18,17 @@ export const ListMovie = async ({
     throw new ResourceNotFoundError();
   }
 
-  for (let i = 0; i < movies.length; i++) {
+  for (const movie of movies) {
     const sessions = await SessionRepository.find({
-      where: { movie_id: movies[i].id },
+      where: { movie_id: movie.id },
     });
-    for (let i = 0; i < sessions.length; i++) {
+    for (const session of sessions) {
       const tickets = await TicketRepository.find({
-        where: { session_id: sessions[i].id },
+        where: { session_id: session.id },
       });
-      sessions[i].tickets = tickets;
+      session.tickets = tickets;
     }
-    movies[i].sessions = sessions;
+    movie.sessions = sessions;
   }
 
   return listMovieSchema.parse(movies);
