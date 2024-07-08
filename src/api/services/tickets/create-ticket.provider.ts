@@ -12,7 +12,7 @@ export const CreateTicket = async (
   const { session_id, chair, value } = createTicketSchema.parse(ticketData);
 
   if (await TicketRepository.exists({ where: { chair, session_id } })) {
-    throw new Error('This chair is already reserved.')
+    throw new Error('This chair is already reserved.');
   }
 
   const session = await SessionRepository.findOne({
@@ -21,6 +21,14 @@ export const CreateTicket = async (
 
   if (!session) {
     throw new ResourceNotFoundError();
+  }
+
+  const checkCapacity = await TicketRepository.find({
+    where: { session_id: session_id },
+  });
+
+  if (checkCapacity.length >= session.capacity) {
+    throw new Error('This session is full.')
   }
 
   const ticket = TicketRepository.create({

@@ -9,8 +9,4 @@ export const SessionRepository = AppDataSource.getRepository(Session).extend({
   ): Promise<Session | null> {
     return this.findOne({ where: { room, day, time } });
   },
-
-  async findByMovie(movie_id: number): Promise<Session[] | null> {
-    return this.find({ where: { movie_id } });
-  },
 });

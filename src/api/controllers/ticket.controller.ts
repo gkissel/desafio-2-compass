@@ -71,7 +71,7 @@ export default class TicketController {
 
     try {
       await this.ticketService.deleteTicket(id, session_id);
-      res.status(240).send();
+      res.status(204).send();
     } catch (error) {
       console.error('Error deleting ticket: ', error);
       res.status(500).json({ error: 'Internal Serve Error' });
