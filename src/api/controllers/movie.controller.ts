@@ -1,15 +1,13 @@
 import { Request, Response } from 'express'
-import { createMovieRequestSchema } from '../services/movie/create-movie.provider'
-import { listMovieRequestSchema } from '../services/movie/list-movie.provider'
 import MovieService from '../services/movie/movie.service'
-import { updateMovieRequestSchema } from '../services/movie/update-movie.provider'
+import { createMovieSchema, moviePaginationSchema, updateMovieSchema } from '../schemas/movie.schemas'
 
 export default class MovieController {
   movieService = new MovieService()
 
   createMovie = async (req: Request, res: Response) => {
     try {
-      const { error, data } = createMovieRequestSchema.safeParse(req.body)
+      const { error, data } = createMovieSchema.safeParse(req.body)
 
       if (error) {
         const err = {
@@ -20,14 +18,14 @@ export default class MovieController {
         return res.status(400).json(err)
       }
       const createMovie = await this.movieService.createMovie(data)
-      res.status(201).json({ data: createMovie })
+      res.status(201).json(createMovie)
     } catch (error) {
-      res.status(400).json({ message: error.message })
+      res.status(400).json({ message: error })
     }
   }
 
   updateMovie = async (req: Request, res: Response) => {
-    const { error, data } = updateMovieRequestSchema.safeParse({
+    const { error, data } = updateMovieSchema.safeParse({
       ...req.body,
       id: parseInt(req.params.id),
     })
@@ -42,7 +40,7 @@ export default class MovieController {
     }
     try {
       const updateMovie = await this.movieService.updateMovie(data)
-      res.status(200).json({ data: updateMovie })
+      res.status(200).json(updateMovie)
     } catch (error) {
       console.error('Error updating movie: ', error)
       res.status(500).json({ error: 'Internal Server Error' })
@@ -63,7 +61,7 @@ export default class MovieController {
       await this.movieService.deleteMovie({ id })
       res.status(204).send()
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res.status(500).json({ message: error })
     }
   }
 
@@ -81,7 +79,7 @@ export default class MovieController {
     try {
       const movie = await this.movieService.searchMovie({ id })
 
-      res.status(200).json({ data: movie })
+      res.status(200).json(movie)
     } catch (error) {
       console.error('Error searching movie: ', error)
       res.status(404).json({ error: 'Movie not found' })
@@ -89,12 +87,12 @@ export default class MovieController {
   }
 
   listMovies = async (req: Request, res: Response) => {
-    const { page, perPage } = listMovieRequestSchema.parse(req.query)
+    const { page, perPage } = moviePaginationSchema.parse(req.query)
 
     try {
       const movies = await this.movieService.listMovie({ page, perPage })
       if (movies) {
-        return res.status(200).json({ data: movies })
+        return res.status(200).json(movies)
       }
       res.status(204).send()
     } catch (error) {

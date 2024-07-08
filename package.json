@@ -29,7 +29,7 @@
     "globals": "^15.7.0",
     "prettier": "^3.3.2",
     "supertest": "^7.0.0",
-    "ts-node": "10.9.2",
+    "ts-node": "^10.9.2",
     "tsup": "^8.1.0",
     "tsx": "^4.16.0",
     "typescript": "5.5.3",
@@ -45,6 +45,7 @@
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "migrations": "typeorm-ts-node-commonjs migration:run -d ./src/database/data-source.ts",
-    "typeorm": "typeorm-ts-node-commonjs schema:sync -d ./src/database/data-source.ts"
+    "typeorm": "typeorm-ts-node-commonjs schema:sync -d ./src/database/data-source.ts",
+    "typeorm:m:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d ./src/database/data-source.ts"
   }
 }

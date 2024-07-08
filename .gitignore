@@ -37,6 +37,7 @@ data.db
 *.launch
 .settings/
 *.sublime-workspace
+.prettierrc
 
 # IDE - VSCode
 .vscode/*

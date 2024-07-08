@@ -1,14 +1,8 @@
 import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
-import z from 'zod'
+import { searchMovieData } from '@/api/types/movie.types'
 
-export const deleteMovieRequestSchema = z.object({
-  id: z.coerce.number(),
-})
-
-type deleteMovieRequestData = z.infer<typeof deleteMovieRequestSchema>
-
-export const DeleteMovie = async ({ id }: deleteMovieRequestData) => {
+export const DeleteMovie = async ({ id }: searchMovieData) => {
   // eslint-disable-next-line camelcase
   const movie = await MovieRepository.findOne({
     where: { id },

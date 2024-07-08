@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
-@Entity({ name: 'Movie' })
+@Entity({ name: 'Movies' })
 export class Movie {
   @PrimaryGeneratedColumn()
   id: number
@@ -29,10 +29,10 @@ export class Movie {
   @Column('varchar')
   genre: string
 
-  @Column('varchar')
-  release_date: string
+  @Column('datetime')
+  release_date: Timestamp
 
-  // @OneToMany(() => Session, (session) => session.movie)
+  // @OneToMany(() => Session, (session) => session.movie, { onDelete: 'CASCADE' })
   // sessions: Session[]
 
   @CreateDateColumn()
