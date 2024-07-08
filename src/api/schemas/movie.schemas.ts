@@ -60,3 +60,4 @@ export {
   searchMovieSchema,
   updateMovieSchema,
 };
+
