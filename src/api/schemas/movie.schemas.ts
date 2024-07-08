@@ -5,7 +5,7 @@ const movieSchema = z.object({
   id: z.number(),
   image: z.string(),
   name: z.string(),
-  description: z.string(),
+  description: z.string().max(100),
   actors: z.array(z.string()),
   genre: z.string(),
   release_date: z.date().transform((date) => {
@@ -18,7 +18,7 @@ const newMovieSchema = z.object({
   id: z.number(),
   image: z.string(),
   name: z.string(),
-  description: z.string(),
+  description: z.string().max(100),
   actors: z.array(z.string()),
   genre: z.string(),
   release_date: z.coerce.date().transform((date) => {
