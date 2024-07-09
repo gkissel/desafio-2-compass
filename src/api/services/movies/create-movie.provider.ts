@@ -1,3 +1,4 @@
+import AppError from '@/api/errors/AppError'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { createMovieSchema, newMovieSchema } from '@/api/schemas/movie.schemas'
 import { createMovieData, newMovieData } from '@/api/types/movie.types'
@@ -10,7 +11,7 @@ export const CreateMovie = async (
     createMovieSchema.parse(movieData)
 
   if (await MovieRepository.exists({ where: { name } })) {
-    throw new Error('Movie name already registered')
+    throw new AppError('Bad Request', 'Movie name already registered');
   }
   const movie = MovieRepository.create({
     actors,

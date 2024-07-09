@@ -1,3 +1,4 @@
+import AppError from '@/api/errors/AppError'
 import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
 import { TicketSessionError } from '@/api/errors/ticket-session-error'
 import { SessionRepository } from '@/api/repositories/SessionRepository'
@@ -13,7 +14,7 @@ export const UpdateTicket = async (
   const ticket = await TicketRepository.findOne({ where: { id } })
 
   if (!ticket) {
-    throw new ResourceNotFoundError()
+    throw new AppError('Bad Request', 'Ticket does not exist');
   }
 
   const session = await SessionRepository.findOne({
@@ -21,11 +22,11 @@ export const UpdateTicket = async (
   })
 
   if (!session) {
-    throw new ResourceNotFoundError()
+    throw new AppError('Bad Request', 'Session does not exist');
   }
 
   if (session.id !== ticket.session_id) {
-    throw new TicketSessionError()
+    throw new AppError('Bad Request', 'SessionID does not match');
   }
 
   const checkTicket = await TicketRepository.findByChairAndSession(
@@ -34,7 +35,7 @@ export const UpdateTicket = async (
   )
 
   if (checkTicket && checkTicket.id !== id) {
-    throw new Error('This chair is already reserved.')
+    throw new AppError('Bad Request', 'This chair is already reserved.');
   }
 
   ticket.chair = chair

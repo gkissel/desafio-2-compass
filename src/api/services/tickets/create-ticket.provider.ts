@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
+import AppError from '@/api/errors/AppError'
 import { SessionRepository } from '@/api/repositories/SessionRepository'
 import { TicketRepository } from '@/api/repositories/TicketRepository'
 import { createTicketSchema, ticketSchema } from '@/api/schemas/ticket.schemas'
@@ -11,7 +11,7 @@ export const CreateTicket = async (
   const { session_id, chair, value } = createTicketSchema.parse(ticketData)
 
   if (await TicketRepository.exists({ where: { chair, session_id } })) {
-    throw new Error('This chair is already reserved.')
+    throw new AppError('Bad Request', 'This chair is already reserved.');
   }
 
   const session = await SessionRepository.findOne({
@@ -19,7 +19,7 @@ export const CreateTicket = async (
   })
 
   if (!session) {
-    throw new ResourceNotFoundError()
+    throw new AppError('Bad Request', 'Session does not exist');
   }
 
   const checkCapacity = await TicketRepository.find({
@@ -27,7 +27,7 @@ export const CreateTicket = async (
   })
 
   if (checkCapacity.length >= session.capacity) {
-    throw new Error('This session is full.')
+    throw new AppError('Bad Request', 'This session is full.');
   }
 
   const ticket = TicketRepository.create({

@@ -28,7 +28,7 @@ export default class SessionController {
       const createSession = await this.sessionService.createSession(data)
       res.status(201).json(createSession)
     } catch (error) {
-      res.status(400).json({ message: error })
+      res.status(400).json( error )
     }
   }
 

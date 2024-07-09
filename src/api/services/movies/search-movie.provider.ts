@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
+import AppError from '@/api/errors/AppError'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { SessionRepository } from '@/api/repositories/SessionRepository'
 import { TicketRepository } from '@/api/repositories/TicketRepository'
@@ -13,7 +13,7 @@ export const SearchMovie = async ({
     where: { id },
   })
   if (!movie) {
-    throw new ResourceNotFoundError()
+    throw new AppError('Bad Request', 'Film does not exist');
   }
 
   const sessions = await SessionRepository.find({ where: { movie_id: id } }) // encontrar as sessions do filme

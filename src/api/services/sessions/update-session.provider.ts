@@ -1,5 +1,4 @@
-import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
-import { SessionMovieError } from '@/api/errors/session-movie-error'
+import AppError from '@/api/errors/AppError'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { SessionRepository } from '@/api/repositories/SessionRepository'
 import {
@@ -17,17 +16,17 @@ export const UpdateSession = async (
   const movie = await MovieRepository.findOne({ where: { id: movie_id } })
 
   if (!movie) {
-    throw new ResourceNotFoundError()
+    throw new AppError('Bad Request', 'Customer not found.');
   }
 
   const session = await SessionRepository.findOne({ where: { id } })
 
   if (!session) {
-    throw new ResourceNotFoundError()
+    throw new AppError('Bad Request', 'Session does not exist');
   }
 
   if (movie.id !== session.movie_id) {
-    throw new SessionMovieError() // melhorar esse erro - exibir msg
+    throw new AppError('Bad Request', 'MovieID does not match.');
   }
 
   const checkSession = await SessionRepository.findByRoomAndDayAndTime(
@@ -37,7 +36,7 @@ export const UpdateSession = async (
   )
 
   if (checkSession && checkSession.id !== id) {
-    throw new Error('Room is already booked for another session at this time.')
+    throw new AppError('Bad Request', 'Room is already booked for another session at this time.');
   }
 
   session.room = room

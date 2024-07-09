@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
+import AppError from '@/api/errors/AppError'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { newMovieSchema, updateMovieSchema } from '@/api/schemas/movie.schemas'
 import { newMovieData, updateMovieData } from '@/api/types/movie.types'
@@ -16,13 +16,13 @@ export const UpdateMovie = async (
   })
 
   if (!movie) {
-    throw new ResourceNotFoundError()
+    throw new AppError('Bad Request', 'Film does not exist');
   }
 
   const checkMovie = await MovieRepository.findByName(name)
 
   if (checkMovie && checkMovie.id !== id) {
-    throw new Error('Movie name already registered')
+    throw new AppError('Bad Request', 'Movie name already registered');
   }
 
   movie.actors = actors

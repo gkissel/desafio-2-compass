@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
+import AppError from '@/api/errors/AppError'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { SessionRepository } from '@/api/repositories/SessionRepository'
 import { TicketRepository } from '@/api/repositories/TicketRepository'
@@ -15,7 +15,7 @@ export const ListMovie = async ({
     skip: (page - 1) * perPage,
   })
   if (!movies) {
-    throw new ResourceNotFoundError()
+    throw new AppError('Bad Request', 'Film does not exist');
   }
 
   for (const movie of movies) {
