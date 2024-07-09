@@ -72,22 +72,22 @@ O projeto consiste no desenvolvimento de uma API REST para a bilheteria de um ci
 ### Rotas
 
 <aside>
-<img src="/icons/arrow-right_gray.svg" alt="/icons/arrow-right_gray.svg" width="40px" /> base_url → localhost:3333/api/v1
+> base_url → localhost:3333/api/v1
 
 </aside>
 
 <aside>
-<img src="/icons/arrow-right_gray.svg" alt="/icons/arrow-right_gray.svg" width="40px" /> {movie_id} → id do filme
+> {movie_id} → id do filme
 
 </aside>
 
 <aside>
-<img src="/icons/arrow-right_gray.svg" alt="/icons/arrow-right_gray.svg" width="40px" /> {session_id} → id da sessão
+> {session_id} → id da sessão
 
 </aside>
 
 <aside>
-<img src="/icons/arrow-right_gray.svg" alt="/icons/arrow-right_gray.svg" width="40px" /> :id → id do recurso atual
+> :id → id do recurso atual
 
 </aside>
 
