@@ -1,0 +1,664 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Desafio Compass",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "movie"
+    },
+    {
+      "name": "session"
+    },
+    {
+      "name": "ticket"
+    }
+  ],
+  "paths": {
+    "/movies": {
+      "get": {
+        "tags": ["movie"],
+        "summary": "Find all movies",
+        "operationId": "findAllMovies",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MovieResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Status Value"
+          }
+        }
+      },
+      "post": {
+        "tags": ["movie"],
+        "summary": "Creates a movie",
+        "operationId": "createMovie",
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "get": {
+        "tags": ["movie"],
+        "summary": "Find movie by ID",
+        "description": "Returns a single movie",
+        "operationId": "getMovieById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of movie to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["movie"],
+        "summary": "Updates a movie",
+        "operationId": "updateMovie",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of movie to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["movie"],
+        "summary": "Deletes a movie",
+        "operationId": "deleteMovie",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of movie to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        }
+      }
+    },
+    "/movies/{movie_id}/sessions": {
+      "post": {
+        "tags": ["session"],
+        "summary": "Creates a sessions",
+        "operationId": "createSession",
+        "parameters": [
+          {
+            "name": "movie_id",
+            "in": "path",
+            "description": "movie id session is related to",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid status value"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/{movie_id}/sessions/{id}": {
+      "put": {
+        "tags": ["session"],
+        "summary": "Updates a Session",
+        "operationId": "updateSession",
+        "parameters": [
+          {
+            "name": "movie_id",
+            "in": "path",
+            "description": "movie id session is related to",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "session id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid status value"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["session"],
+        "summary": "Deletes a session",
+        "operationId": "deleteSession",
+        "parameters": [
+          {
+            "name": "movie_id",
+            "in": "path",
+            "description": "movie id session is related to",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "session id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          },
+          "400": {
+            "description": "Invalid Status Value"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movies/{movie_id}/sessions/{session_id}/tickets": {
+      "post": {
+        "tags": ["ticket"],
+        "summary": "Creates a Ticket",
+        "operationId": "createTicket",
+        "parameters": [
+          {
+            "name": "movie_id",
+            "in": "path",
+            "description": "movie id session is related to",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "session id ticket is related to",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid status value"
+          }
+        }
+      }
+    },
+    "/movies/{movie_id}/sessions/{session_id}/tickets/{id}": {
+      "put": {
+        "tags": ["ticket"],
+        "summary": "Updates a Ticket",
+        "operationId": "updateTicket",
+        "parameters": [
+          {
+            "name": "movie_id",
+            "in": "path",
+            "description": "movie id session is related to",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "session id ticket is related to",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ticket id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid status value"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["ticket"],
+        "summary": "Deletes a Ticket",
+        "operationId": "deleteTicket",
+        "parameters": [
+          {
+            "name": "movie_id",
+            "in": "path",
+            "description": "movie id session is related to",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "session id ticket is related to",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ticket id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          },
+          "400": {
+            "description": "invalid status value"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MovieReq": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "example": "url_da_imagem"
+          },
+          "name": {
+            "type": "string",
+            "example": "nome_do_filme"
+          },
+          "description": {
+            "type": "string",
+            "example": "descricao_do_filme"
+          },
+          "actors": {
+            "type": "string",
+            "example": ["brad pit", "Ryan Goslin"]
+          },
+          "genre": {
+            "type": "string",
+            "example": "genero_do_filme"
+          },
+          "release_date": {
+            "type": "string",
+            "example": "03/06/2024"
+          }
+        },
+        "required": [
+          "image",
+          "name",
+          "description",
+          "actors",
+          "genre",
+          "release_date"
+        ]
+      },
+      "MovieResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "image": {
+            "type": "string",
+            "example": "url_da_imagem"
+          },
+          "name": {
+            "type": "string",
+            "example": "nome_do_filme"
+          },
+          "description": {
+            "type": "string",
+            "example": "descricao_do_filme"
+          },
+          "actors": {
+            "type": "string",
+            "example": ["Brad Pitt", "Ryan Gosling"]
+          },
+          "genre": {
+            "type": "string",
+            "example": "genero_do_filme"
+          },
+          "release_date": {
+            "type": "string",
+            "example": "03/06/2024"
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": []
+          }
+        },
+        "required": [
+          "id",
+          "image",
+          "name",
+          "description",
+          "actors",
+          "genre",
+          "release_date"
+        ]
+      },
+      "SessionRequest": {
+        "type": "object",
+        "properties": {
+          "room": {
+            "type": "string",
+            "example": "nome_da_sala"
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int64",
+            "example": 100
+          },
+          "day": {
+            "type": "string",
+            "example": "03/06/2024"
+          },
+          "time": {
+            "type": "string",
+            "example": "14:23:00"
+          }
+        },
+        "required": ["room", "capacity", "day", "time"]
+      },
+      "SessionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "movie_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "room": {
+            "type": "string",
+            "example": "nome_da_sala"
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int64",
+            "example": 100
+          },
+          "day": {
+            "type": "string",
+            "example": "03/06/2024"
+          },
+          "time": {
+            "type": "string",
+            "example": "14:23:00"
+          },
+          "tickets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": []
+          }
+        },
+        "required": ["room", "capacity", "day", "time"]
+      },
+      "TicketReq": {
+        "type": "object",
+        "properties": {
+          "chair": {
+            "type": "string",
+            "example": "b1"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          }
+        }
+      },
+      "TicketResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "session_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "chair": {
+            "type": "string",
+            "example": "b1"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          }
+        }
+      }
+    }
+  }
+}

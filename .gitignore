@@ -27,6 +27,8 @@ lerna-debug.log*
 
 data.db
 
+.env
+
 # IDEs and editors
 /.idea
 .project
@@ -35,6 +37,7 @@ data.db
 *.launch
 .settings/
 *.sublime-workspace
+.prettierrc
 
 # IDE - VSCode
 .vscode/*

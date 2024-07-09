@@ -1,8 +1,10 @@
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import swaggerUi from 'swagger-ui-express'
-import { controllersRouter } from './api/controllers/controllers.module'
+import swaggerDoc from '../swagger.json'
+import routes from './api/routes/router'
 import { AppDataSource } from './database/data-source'
 import { env } from './env'
+import AppError from './api/errors/AppError'
 
 AppDataSource.initialize()
   .then(async () => {
@@ -11,18 +13,27 @@ AppDataSource.initialize()
 
     app.use(express.json())
 
-    const swaggerDocument = {
-      openapi: '3.0.0',
-      info: {
-        title: 'Projeto Compass',
-        description: 'Desafio',
-        version: '1.0.0',
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
+
+    app.use('/api/v1', routes)
+
+    app.use(
+      (error: Error, request: Request, response: Response, next: NextFunction) => {
+        if (error instanceof AppError) {
+          return response.status(error.code).json({
+            code: error.code,
+            status: 'Bad Request',
+            message: error.message,
+          });
+        }
+    
+        return response.status(500).json({
+          code: 500,
+          status: 'Internal Server Error',
+          message: 'Ocorreu um erro inesperado.',
+        });
       },
-    }
-
-    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-
-    app.use('/api/v1', controllersRouter)
+    );
 
     app.listen(env.PORT, () => {
       console.log(`Server is running on port ${env.PORT}`)
