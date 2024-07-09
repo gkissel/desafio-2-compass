@@ -1,5 +1,5 @@
+import AppError from '@/api/errors/AppError';
 import { MovieRepository } from '@/api/repositories/MovieRepository';
-import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error';
 import { UpdateMovie } from '@/api/services/movies/update-movie.provider';
 import { describe, expect, it, vi, afterEach } from 'vitest';
 
@@ -8,7 +8,7 @@ describe('Update Movie Tests', () => {
     vi.restoreAllMocks();
   });
 
-  it('should throw ResourceNotFoundError when movie does not exist', async () => {
+  it('should throw Error when movie does not exist', async () => {
     const movieData = {
       id: 1212,
       actors: ['Updated Actor 1', 'Updated Actor 2'],
@@ -23,7 +23,7 @@ describe('Update Movie Tests', () => {
       .spyOn(MovieRepository, 'findOne')
       .mockResolvedValueOnce(null);
 
-    await expect(UpdateMovie(movieData)).rejects.toThrow(ResourceNotFoundError);
+    await expect(UpdateMovie(movieData)).rejects.toThrow(AppError);
 
     expect(mockFindOne).toHaveBeenCalledWith({ where: { id: movieData.id } });
   });
