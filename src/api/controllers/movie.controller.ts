@@ -1,109 +1,113 @@
-import { Request, Response } from 'express'; 
-import MovieService from '../services/movies/movie.service'; 
-import { createMovieSchema, moviePaginationSchema, updateMovieSchema } from '../schemas/movie.schemas'; 
+import { Request, Response } from 'express'
+import {
+  createMovieSchema,
+  moviePaginationSchema,
+  updateMovieSchema,
+} from '../schemas/movie.schemas'
+import MovieService from '../services/movies/movie.service'
 
 export default class MovieController {
-  movieService = new MovieService(); 
+  movieService = new MovieService()
 
   createMovie = async (req: Request, res: Response) => {
     try {
-      const { error, data } = createMovieSchema.safeParse(req.body); 
+      const { error, data } = createMovieSchema.safeParse(req.body)
 
-      if (error) { 
+      if (error) {
         const err = {
-          message: error.message, 
-          field: error.formErrors, 
-          status: 'Failed', 
-        };
-        return res.status(400).json(err); 
+          message: error.message,
+          field: error.formErrors,
+          status: 'Failed',
+        }
+        return res.status(400).json(err)
       }
 
-      const createMovie = await this.movieService.createMovie(data); 
-      res.status(201).json(createMovie); 
-    } catch (error) { 
-      res.status(400).json({ message: error }); 
+      const createMovie = await this.movieService.createMovie(data)
+      res.status(201).json(createMovie)
+    } catch (error) {
+      res.status(400).json({ message: error })
     }
   }
 
   updateMovie = async (req: Request, res: Response) => {
     const { error, data } = updateMovieSchema.safeParse({
       ...req.body,
-      id: parseInt(req.params.id), 
-    });
+      id: parseInt(req.params.id),
+    })
 
     if (error) {
       const err = {
         message: error.message,
-        field: error.formErrors, 
-        status: 'Failed', 
-      };
-      return res.status(400).json(err); 
+        field: error.formErrors,
+        status: 'Failed',
+      }
+      return res.status(400).json(err)
     }
 
     try {
-      const updateMovie = await this.movieService.updateMovie(data); 
-      res.status(200).json(updateMovie); 
-    } catch (error) { 
-      console.error('Error updating movie: ', error); 
-      res.status(500).json({ error: 'Internal Server Error' }); 
+      const updateMovie = await this.movieService.updateMovie(data)
+      res.status(200).json(updateMovie)
+    } catch (error) {
+      console.error('Error updating movie: ', error)
+      res.status(500).json({ error: 'Internal Server Error' })
     }
   }
 
   deleteMovie = async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id); 
+    const id = parseInt(req.params.id)
 
-    if (isNaN(id)) { 
+    if (isNaN(id)) {
       const err = {
-        message: 'Id must be a number', 
-        field: 'id', 
-        status: 'Failed', 
-      };
-      return res.status(400).json(err); 
+        message: 'Id must be a number',
+        field: 'id',
+        status: 'Failed',
+      }
+      return res.status(400).json(err)
     }
 
     try {
-      await this.movieService.deleteMovie({ id }); 
-      res.status(204).send(); 
-    } catch (error) { 
-      res.status(500).json({ message: error }); 
+      await this.movieService.deleteMovie({ id })
+      res.status(204).send()
+    } catch (error) {
+      res.status(500).json({ message: error })
     }
   }
 
   searchMovie = async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id); 
+    const id = parseInt(req.params.id)
 
-    if (isNaN(id)) { 
+    if (isNaN(id)) {
       const err = {
-        message: 'Id must be a number', 
-        field: 'id', 
-        status: 'Failed', 
-      };
-      return res.status(400).json(err); 
+        message: 'Id must be a number',
+        field: 'id',
+        status: 'Failed',
+      }
+      return res.status(400).json(err)
     }
 
     try {
-      const movie = await this.movieService.searchMovie({ id }); 
-      res.status(200).json(movie); 
-    } catch (error) { 
-      console.error('Error searching movie: ', error); 
-      res.status(404).json({ error: 'Movie not found' }); 
+      const movie = await this.movieService.searchMovie({ id })
+      res.status(200).json(movie)
+    } catch (error) {
+      console.error('Error searching movie: ', error)
+      res.status(404).json({ error: 'Movie not found' })
     }
   }
 
   listMovies = async (req: Request, res: Response) => {
-    const { page, perPage } = moviePaginationSchema.parse(req.query); 
+    const { page, perPage } = moviePaginationSchema.parse(req.query)
 
     try {
-      const movies = await this.movieService.listMovie({ page, perPage }); 
+      const movies = await this.movieService.listMovie({ page, perPage })
 
       if (movies) {
-        return res.status(200).json(movies); 
+        return res.status(200).json(movies)
       }
 
-      res.status(204).send(); 
-    } catch (error) { 
-      console.error('Error listing movies: ', error); 
-      res.status(500).json({ error: 'Internal Server Error' }); 
+      res.status(204).send()
+    } catch (error) {
+      console.error('Error listing movies: ', error)
+      res.status(500).json({ error: 'Internal Server Error' })
     }
   }
 }

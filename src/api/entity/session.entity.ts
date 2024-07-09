@@ -9,43 +9,43 @@ import {
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn,
-} from 'typeorm';
-import { Movie } from './movie.entity';
-import { Ticket } from './ticket.entity';
+} from 'typeorm'
+import { Movie } from './movie.entity'
+import { Ticket } from './ticket.entity'
 
 @Entity({ name: 'Sessions' })
 export class Session {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column('varchar')
-  room: string;
+  room: string
 
   @Column('integer')
-  capacity: number;
+  capacity: number
 
   @Column('varchar')
-  day: string;
+  day: string
 
   @Column('varchar')
-  time: string;
+  time: string
 
   @ManyToOne(() => Movie, (movie) => movie.sessions)
   @JoinColumn({ name: 'movie_id' })
-  movie: Movie;
+  movie: Movie
 
   @Column('integer')
   movie_id: number
 
   @OneToMany(() => Ticket, (ticket) => ticket.session)
-  tickets: Ticket[];
+  tickets: Ticket[]
 
   @CreateDateColumn()
-  created_at: Timestamp;
+  created_at: Timestamp
 
   @UpdateDateColumn()
-  updated_at: Timestamp;
+  updated_at: Timestamp
 
   @DeleteDateColumn()
-  deleted_at: Timestamp;
+  deleted_at: Timestamp
 }

@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm'
 
 export class CreateSessionsTable1720043315149 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -50,7 +55,7 @@ export class CreateSessionsTable1720043315149 implements MigrationInterface {
           },
         ],
       }),
-    );
+    )
 
     await queryRunner.createForeignKey(
       'sessions',
@@ -61,11 +66,11 @@ export class CreateSessionsTable1720043315149 implements MigrationInterface {
         referencedTableName: 'movies',
         onDelete: 'CASCADE',
       }),
-    );
+    )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('sessions', 'SessionsMovie');
-    await queryRunner.dropTable('sessions');
+    await queryRunner.dropForeignKey('sessions', 'SessionsMovie')
+    await queryRunner.dropTable('sessions')
   }
 }

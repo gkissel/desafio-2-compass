@@ -8,33 +8,33 @@ import {
   DeleteDateColumn,
   Timestamp,
   JoinColumn,
-} from 'typeorm';
-import { Session } from './session.entity';
+} from 'typeorm'
+import { Session } from './session.entity'
 
 @Entity({ name: 'tickets' })
 export class Ticket {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column('varchar')
-  chair: string;
+  chair: string
 
   @Column('double')
-  value: number;
+  value: number
 
   @ManyToOne(() => Session, (session) => session.tickets)
   @JoinColumn({ name: 'session_id' })
-  session: Session;
+  session: Session
 
   @Column('integer')
-  session_id: number;
+  session_id: number
 
   @CreateDateColumn()
-  created_at: Timestamp;
+  created_at: Timestamp
 
   @UpdateDateColumn()
-  updated_at: Timestamp;
+  updated_at: Timestamp
 
   @DeleteDateColumn()
-  deleted_at: Timestamp;
+  deleted_at: Timestamp
 }
