@@ -3,7 +3,7 @@ import {
   QueryRunner,
   Table,
   TableForeignKey,
-} from 'typeorm';
+} from 'typeorm'
 
 export class CreateTicketsTable1720202978326 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -47,7 +47,7 @@ export class CreateTicketsTable1720202978326 implements MigrationInterface {
           },
         ],
       }),
-    );
+    )
 
     await queryRunner.createForeignKey(
       'tickets',
@@ -58,11 +58,11 @@ export class CreateTicketsTable1720202978326 implements MigrationInterface {
         referencedTableName: 'sessions',
         onDelete: 'CASCADE',
       }),
-    );
+    )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('tickets', 'TicketsSession');
-    await queryRunner.dropTable('tickets');
+    await queryRunner.dropForeignKey('tickets', 'TicketsSession')
+    await queryRunner.dropTable('tickets')
   }
 }

@@ -1,5 +1,5 @@
-import { AppDataSource } from '@/database/data-source';
-import { Session } from '../entity/session.entity';
+import { AppDataSource } from '@/database/data-source'
+import { Session } from '../entity/session.entity'
 
 export const SessionRepository = AppDataSource.getRepository(Session).extend({
   async findByRoomAndDayAndTime(
@@ -7,6 +7,6 @@ export const SessionRepository = AppDataSource.getRepository(Session).extend({
     day: string,
     time: string,
   ): Promise<Session | null> {
-    return this.findOne({ where: { room, day, time } });
+    return this.findOne({ where: { room, day, time } })
   },
-});
+})

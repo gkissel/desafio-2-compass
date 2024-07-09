@@ -2,7 +2,8 @@
   "extends": "@rocketseat/eslint-config/node",
   "rules": {
     "no-useless-constructor": "off",
-    "typescript-eslint/ban-types": "off"
+    "typescript-eslint/ban-types": "off",
+    "camelcase": "off"
   },
   "ignorePatterns": ["swagger.json", "package.json"]
 }

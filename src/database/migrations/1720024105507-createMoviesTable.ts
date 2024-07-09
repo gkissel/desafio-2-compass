@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
 export class CreateMoviesTable1720024105507 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -15,12 +15,12 @@ export class CreateMoviesTable1720024105507 implements MigrationInterface {
           },
           {
             name: 'image',
-            type: 'varchar'
+            type: 'varchar',
           },
           {
             name: 'name',
             type: 'varchar',
-            isUnique: true
+            isUnique: true,
           },
           {
             name: 'description',
@@ -56,10 +56,10 @@ export class CreateMoviesTable1720024105507 implements MigrationInterface {
           },
         ],
       }),
-    );
+    )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('movies');
+    await queryRunner.dropTable('movies')
   }
 }

@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
+import AppError from '@/api/errors/AppError'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { searchMovieData } from '@/api/types/movie.types'
 
@@ -9,8 +9,8 @@ export const DeleteMovie = async ({ id }: searchMovieData) => {
     // relations: { sessions: true },
   })
   if (!movie) {
-    throw new ResourceNotFoundError()
+    throw new AppError('Bad Request', 'Customer not found.', 500);
   }
 
-  await MovieRepository.softRemove(movie)
+  await MovieRepository.remove(movie)
 }
