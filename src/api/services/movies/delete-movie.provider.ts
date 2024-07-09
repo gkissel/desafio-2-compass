@@ -12,5 +12,5 @@ export const DeleteMovie = async ({ id }: searchMovieData) => {
     throw new ResourceNotFoundError()
   }
 
-  await MovieRepository.softRemove(movie)
+  await MovieRepository.remove(movie)
 }
