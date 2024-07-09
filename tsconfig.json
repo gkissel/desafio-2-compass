@@ -23,5 +23,6 @@
     "resolveJsonModule": true,
     "strictPropertyInitialization": false
   },
-  "include": ["src/**/*", "@types/*.d.ts"]
+  "types": ["vitest/globals", "multer"],
+  "include": ["src/**/*", "@types/*.d.ts", "test/**/*"]
 }
