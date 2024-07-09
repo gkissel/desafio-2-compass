@@ -1,5 +1,4 @@
 import AppError from '@/api/errors/AppError'
-import { ResourceNotFoundError } from '@/api/errors/resource-not-found.error'
 import { MovieRepository } from '@/api/repositories/MovieRepository'
 import { searchMovieData } from '@/api/types/movie.types'
 

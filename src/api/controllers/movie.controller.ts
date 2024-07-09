@@ -48,8 +48,7 @@ export default class MovieController {
       const updateMovie = await this.movieService.updateMovie(data)
       res.status(200).json(updateMovie)
     } catch (error) {
-      console.error('Error updating movie: ', error)
-      res.status(500).json({ error: 'Internal Server Error' })
+      res.status(400).json( error )
     }
   }
 
