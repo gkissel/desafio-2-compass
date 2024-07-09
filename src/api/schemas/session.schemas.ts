@@ -36,7 +36,7 @@ const validateDay = (day: string) => {
 const sessionTicketSchema = z.object({
   id: z.number(),
   movie_id: z.number(),
-  room: z.string(),
+  room: z.string().min(1),
   capacity: z.number().positive().default(100),
   day: z.string().refine(validateDay),
   time: z.string().refine(validateTime),

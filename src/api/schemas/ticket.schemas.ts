@@ -3,7 +3,7 @@ import { z } from 'zod'
 const ticketSchema = z.object({
   id: z.number(),
   session_id: z.number(),
-  chair: z.string(),
+  chair: z.string().min(1),
   value: z.number(),
 })
 

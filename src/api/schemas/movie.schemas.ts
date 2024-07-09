@@ -3,11 +3,11 @@ import { sessionTicketSchema } from './session.schemas'
 
 const movieSchema = z.object({
   id: z.number(),
-  image: z.string(),
-  name: z.string(),
-  description: z.string().max(100),
-  actors: z.array(z.string()),
-  genre: z.string(),
+  image: z.string().min(1),
+  name: z.string().min(1),
+  description: z.string().max(100).min(1),
+  actors: z.array(z.string().min(1)).min(1),
+  genre: z.string().min(1),
   release_date: z.date().transform((date) => {
     return date.toLocaleDateString('pt-BR')
   }),
@@ -16,11 +16,11 @@ const movieSchema = z.object({
 
 const newMovieSchema = z.object({
   id: z.number(),
-  image: z.string(),
-  name: z.string(),
-  description: z.string().max(100),
-  actors: z.array(z.string()),
-  genre: z.string(),
+  image: z.string().min(1),
+  name: z.string().min(1),
+  description: z.string().max(100).min(1),
+  actors: z.array(z.string().min(1)).min(1),
+  genre: z.string().min(1),
   release_date: z.coerce.date().transform((date) => {
     return date.toLocaleDateString('pt-BR')
   }),
